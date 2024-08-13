@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+        <form id="search">
+            <input type="text" id="text" placeholder="search here">
+            <button type="click" id="enter">submit</button>
+        </form>
+
+        <form id="info">
+            <h1>NAME:</h1>
+            <h1 id="name"> </h1>
+            </n>
+            <h1>TYPE:</h1>
+            <h1 id="type"></h1>
+            </n>
+            <h1>HEIGHT:</h1>
+            <h1 id="height"></h1>
+            </n>
+            <h1>WEIGHT:</h1>
+            <h1 id="weight"></h1>
+            </n>
+            <h1>ABILITY:</h1>
+            <h1 id="bio"></h1>
+            </n>
+        </form>
+
+    <script>
+        const form = document.getElementById("search");
+        const name = document.getElementById("name");
+        const type = document.getElementById("type");
+        const weight = document.getElementById("weight");
+        const height = document.getElementById("height");
+        const bio = document.getElementById("bio");
+        form.addEventListener("submit", (e) => {
+            e.preventDefault();
+            const input = document.getElementById("text").value;
+
+            fetch(`https://pokeapi.co/api/v2/pokemon/${input}`)
+                .then((response) => response.json())
+                .then((data) => {
+                    const img = document.createElement("img");
+                    name.innerText = "";
+                    type.innerText = "";
+                    weight.innerText = "";
+                    height.innerText = "";
+                    bio.innerText = "";
+
+
+                    
+                    img.setAttribute("src", data.sprites.other.showdown.back_default);
+                    img.style.width = "100px";
+                    img.style.height = "100px";
+                    document.body.appendChild(img);
+
+                    name.innerText = data.name;
+                    type.innerText = data.types[0].type.name;
+                    height.innerText = data.height;  
+                    weight.innerText = data.weight;
+
+                    for (i in data.abilities){
+                        bio.innerText = bio.innerText + data.abilities[i].ability.name + ",";
+                    }
+                });
+        });
+
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form id="command">
+        <input type="text" id="text">
+        <button type="submit"  id="enter">enter</button>
+    </form>
+    <script>
+        let menu = ["rau xào", "thịt luộc", "gà rán"];
+        localStorage.setItem("menu",JSON.stringify(menu));
+        
+        const comms = document.getElementById("command");
+        const text = document.getElementById("text");
+
+        function addItem(e){
+            let a = prompt("Mời người dùng nhập món ăn muốn thêm vào menu");
+            menu.push(a);
+            localStorage.setItem("menu",JSON.stringify(menu));
+        }
+
+        function readItem(e){
+            alert(menu.join(", "));
+        }
+
+        comms.addEventListener("submit",function(e){
+            e.preventDefault();
+            if(text.value=="c")addItem();
+            if(text.value=="r")readItem();
+        })
+
+    
+    </script>
+</body>
+</html>
